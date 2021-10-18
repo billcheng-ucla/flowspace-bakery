@@ -7,6 +7,8 @@
     - if @oven.cookie.ready?
       (Your Cookie is Ready)
       = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
+    - else
+      (Cookie Baking)
   - else
     None
 

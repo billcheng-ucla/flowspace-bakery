@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+BAKING_TIME = YAML.load_file('config/bakingtime.yml')
+
 module FlowspaceBakery
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
