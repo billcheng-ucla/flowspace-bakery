@@ -3,22 +3,26 @@ class CookiesController < ApplicationController
 
   def new
     @oven = current_user.ovens.find_by!(id: params[:oven_id])
-    if @oven.cookie
-      redirect_to @oven, alert: 'A cookie is already in the oven!'
+    if @oven.cookies.size > 0
+      redirect_to @oven, alert: "#{pluralize(@oven.cookies.size, "cookie")} #{"is".pluralize(@oven.cookies.size)} already in the oven!"
     else
-      @cookie = @oven.build_cookie
+      @cookie = @oven.cookies.build
     end
   end
 
   def create
+
     @oven = current_user.ovens.find_by!(id: params[:oven_id])
-    @cookie = @oven.create_cookie!(cookie_params)
+    for i in 0...cookie_params[:quantity].to_i
+      @cookie = @oven.cookies.create(fillings: cookie_params[:fillings])
+    end
     redirect_to oven_path(@oven)
   end
 
   private
 
   def cookie_params
-    params.require(:cookie).permit(:fillings)
+    params.require(:cookie).permit(:fillings, :quantity)
   end
+
 end
