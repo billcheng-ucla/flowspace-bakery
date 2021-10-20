@@ -3,6 +3,8 @@ class Cookie < ActiveRecord::Base
   
   validates :storage, presence: true
 
+  attr_accessor :quantity
+
   def ready?
     true
   end
