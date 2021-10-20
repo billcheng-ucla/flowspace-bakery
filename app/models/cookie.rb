@@ -4,6 +4,6 @@ class Cookie < ActiveRecord::Base
   validates :storage, presence: true
 
   def ready?
-    true
+    Time.now - created_at > BAKING_TIME["cookie"]
   end
 end
